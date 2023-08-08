@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState, createContext } from "react";
+import io from 'socket.io-client'
 
-const MainProvider = () => {
+const MainContext = createContext();
+
+const socket = io.connect("http://localhost:5000");
+
+export const MainProvider = ({children}) => {
+
+    const [room, setRoom] = useState("");
+    const [username, setUsername] = useState("");
     
-    return (
-        <div>MainProvider</div>
-    )
+    const contextValues = {
+        room,
+        setRoom,
+        username,
+        setUsername,
+        socket
+    }
+
+    return <MainContext.Provider value={contextValues}>{children}</MainContext.Provider>;
 };
 
-export default MainProvider;
+export default MainContext;
