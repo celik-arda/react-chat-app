@@ -11,6 +11,7 @@ export const MainProvider = ({children}) => {
     const [username, setUsername] = useState("");
     const [chatScreen, setChatScreen] = useState(false);
     const [message, setMessage] = useState("");
+    const [allMessages, setAllMessages] = useState([]);
     
     const contextValues = {
         room,
@@ -21,6 +22,8 @@ export const MainProvider = ({children}) => {
         setChatScreen,
         message,
         setMessage,
+        allMessages,
+        setAllMessages,
         socket
     }
 

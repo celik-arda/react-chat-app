@@ -1,23 +1,35 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import MainContext from "../context/MainProvider";
 
 const Chat = () => {
 
-    const {room, setRoom, username, setUsername, socket, chatScreen, setChatScreen, message, setMessage} = useContext(MainContext);
+    const {room, setRoom, username, setUsername, socket, chatScreen, setChatScreen, message, setMessage, allMessages, setAllMessages} = useContext(MainContext);
 
-    const sendMessage = () => {
-
+    useEffect(() => {
+        socket.on("returnedMessage", data => {
+            setAllMessages((prev) => [...prev, data]);
+        })
+    }, [socket])
+    console.log("useEffect : ",allMessages);
+    
+    const sendMessage = async () => {
+        
         const currentTime = new Date();
         const currentHour = currentTime.getHours();
         const currentMinute = currentTime.getMinutes();
         const messageTime = currentHour + " : " + currentMinute;
-
+        
         const messageContent = {
             username: username,
             message: message,
             room: room,
             date: messageTime
         }
+
+        await socket.emit("message", messageContent);
+        await setAllMessages((prev) => [...prev, messageContent]);
+        setMessage("");
+        console.log("sendMessage Func : ",allMessages);
     }
 
     return (

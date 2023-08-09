@@ -15,6 +15,18 @@ const io = new Server(server, {
     }
 })
 
+io.on("connection", (socket) => {
+    console.log(socket.id);
+
+    socket.on("room", (data) => {
+        socket.join(data);
+    })
+
+    socket.on('message', data => {
+        socket.to(data.room).emit("returnedMessage", data);
+    })
+})
+
 const PORT = 5000;
 
 server.listen(PORT, () => {
