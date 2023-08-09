@@ -9,12 +9,15 @@ export const MainProvider = ({children}) => {
 
     const [room, setRoom] = useState("");
     const [username, setUsername] = useState("");
+    const [chatScreen, setChatScreen] = useState(false);
     
     const contextValues = {
         room,
         setRoom,
         username,
         setUsername,
+        chatScreen,
+        setChatScreen,
         socket
     }
 

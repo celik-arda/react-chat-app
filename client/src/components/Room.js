@@ -3,11 +3,12 @@ import MainContext from '../context/MainProvider'
 
 const Room = () => {
 
-    const {room, setRoom, username, setUsername} = useContext(MainContext);
+    const {room, setRoom, username, setUsername, socket, chatScreen, setChatScreen} = useContext(MainContext);
 
     const sendRoomInfo = (e) => {
         e.preventDefault();
         console.log("sendRoomInfo çalıştı");
+        setChatScreen(true);
     }
 
     return (
