@@ -1,8 +1,36 @@
-import React from "react";
+import React, {useContext} from "react";
+import MainContext from "../context/MainProvider";
 
 const Chat = () => {
+
+    const {room, setRoom, username, setUsername, socket, chatScreen, setChatScreen, message, setMessage} = useContext(MainContext);
+
+    const sendMessage = () => {
+
+        const currentTime = new Date();
+        const currentHour = currentTime.getHours();
+        const currentMinute = currentTime.getMinutes();
+        const messageTime = currentHour + " : " + currentMinute;
+
+        const messageContent = {
+            username: username,
+            message: message,
+            room: room,
+            date: messageTime
+        }
+    }
+
     return (
-        <div>Chat</div>
+        <div className="w-12/12 h-[600px] bg-indigo-300 flex flex-col justify-stretch">
+            <div className="text-message-area w-12/12 h-[480px] outline-slate-300 rounded-md">
+                {/* Display messages here! */}
+                <h2>{message}</h2>
+            </div>
+            <div className="flex justify-center gap-x-4">
+                <input value={message} onChange={(e) => setMessage(e.target.value)} type="text" className="w-8/12 h-9 rounded-md" />
+                <button type="submit" onClick={sendMessage} className="w-2/12 bg-lime-400 rounded-md">Send</button>
+            </div>
+        </div>
     )
 };
 
