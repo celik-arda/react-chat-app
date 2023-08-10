@@ -16,8 +16,6 @@ const io = new Server(server, {
 })
 
 io.on("connection", (socket) => {
-    console.log(socket.id);
-
     socket.on("room", (data) => {
         socket.join(data);
     })
@@ -30,5 +28,5 @@ io.on("connection", (socket) => {
 const PORT = 5000;
 
 server.listen(PORT, () => {
-    console.log('----- server şu anda çalışıyor (port:5000)  ----');
+    console.log('Started on 5000 port');
 })
